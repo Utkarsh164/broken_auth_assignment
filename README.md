@@ -1,25 +1,3 @@
-command 1 :
-
-curl -X POST http://localhost:3000/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"utkarsh.srawat2003@gmail.com","password":"password123"}'
-
-command 2:
-
-curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp \
-  -H "Content-Type: application/json" \
-  -d '{"loginSessionId":"<loginSessionId>","otp":"<otp_from_logs>"}'
-
-command 3:
-
-curl -b cookies.txt -X POST http://localhost:3000/auth/token
-
-command 4:
-
-curl -H "Authorization: Bearer <jwt>" http://localhost:3000/protected
-
-
-
 # The Silent Server (Backend Debugging Assignment)
 
 This API is intentionally broken. Your task is to debug it and complete the authentication flow.

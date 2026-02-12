@@ -1,0 +1,54 @@
+Output of commands :
+
+
+command 1:
+
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email"
+
+:"utkarsh.srawat2003@gmail.com","password":"password123"}'
+
+Response:
+
+{"message":"OTP sent","loginSessionId":"mvx7a"}
+
+
+command 2:
+
+curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp -H "Content-Type: applicatio
+
+n/json" -d '{"loginSessionId":"mvx7a","otp":"187206"}'
+
+Response:
+
+{"message":"OTP verified","sessionId":"mvx7a"}
+
+
+command 3:
+
+curl -b cookies.txt -X POST http://localhost:3000/auth/token
+
+Response:
+
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InV0a2Fyc2guc3Jhd2F0MjAwM0BnbWFpbC5jb20iLCJzZXNzaW9uSWQiOiJtdng3YSIsImlhdCI6MTc3MDg5MDI5MiwiZXhwIjoxNzcwODkxMTkyfQ.l2PtQHFr1GQIlp8yKkVJyK2FSw0rVXZTUP-m5Nvg8Us","expires_in":900}⏎
+
+command 4:
+
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InV0a2Fyc2guc3Jhd2F0MjAwM0BnbWFpbC5jb20iLCJzZXNzaW9uSWQiOiJtdng3YSIsImlhdCI6MTc3MDg5MDI5MiwiZXhwIjoxNzcwODkxMTkyfQ.l2PtQHFr1GQIlp8yKkVJyK2FSw0rVXZTUP-m5Nvg8Us" http://localhost:3000/protected
+
+Response:
+
+{"message":"Access granted","user":{"email":"utkarsh.srawat2003@gmail.com","sessionId":"mvx7a","iat":1770890292,"exp":1770891192},"success_flag":"FLAG-dXRrYXJzaC5zcmF3YXQyMDAzQGdtYWlsLmNvbV9DT01QTEVURURfQVNTSUdOTUVOVA=="}
+
+
+Server Logs :
+
+Server running at http://localhost:3000
+POST /auth/login
+[OTP] Session mvx7a generated : 187206
+POST /auth/login -> 200 (71ms)
+POST /auth/verify-otp
+POST /auth/verify-otp -> 200 (25ms)
+POST /auth/token
+POST /auth/token -> 200 (11ms)
+GET /protected
+GET /protected -> 200 (5ms)
