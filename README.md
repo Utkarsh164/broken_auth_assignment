@@ -109,3 +109,65 @@ To submit your assignment:
     *   This file must contain the terminal output of all 4 test commands (Login, Verify OTP, Get Token, Access Protected Route).
     *   Ensure the final command's output showing the `success_flag` is clearly visible in this file.
 3.  Share the link to your repository.
+
+---
+
+## My Output
+
+### Command 1 — Login
+```bash
+curl -X POST http://localhost:3000/auth/login -H "Content-Type: application/json" -d '{"email":"utkarsh.srawat2003@gmail.com","password":"password123"}'
+```
+**Response:**
+```json
+{"message":"OTP sent","loginSessionId":"mvx7a"}
+```
+
+---
+
+### Command 2 — Verify OTP
+```bash
+curl -c cookies.txt -X POST http://localhost:3000/auth/verify-otp -H "Content-Type: application/json" -d '{"loginSessionId":"mvx7a","otp":"187206"}'
+```
+**Response:**
+```json
+{"message":"OTP verified","sessionId":"mvx7a"}
+```
+
+---
+
+### Command 3 — Get Token
+```bash
+curl -b cookies.txt -X POST http://localhost:3000/auth/token
+```
+**Response:**
+```json
+{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InV0a2Fyc2guc3Jhd2F0MjAwM0BnbWFpbC5jb20iLCJzZXNzaW9uSWQiOiJtdng3YSIsImlhdCI6MTc3MDg5MDI5MiwiZXhwIjoxNzcwODkxMTkyfQ.l2PtQHFr1GQIlp8yKkVJyK2FSw0rVXZTUP-m5Nvg8Us","expires_in":900}
+```
+
+---
+
+### Command 4 — Access Protected Route
+```bash
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InV0a2Fyc2guc3Jhd2F0MjAwM0BnbWFpbC5jb20iLCJzZXNzaW9uSWQiOiJtdng3YSIsImlhdCI6MTc3MDg5MDI5MiwiZXhwIjoxNzcwODkxMTkyfQ.l2PtQHFr1GQIlp8yKkVJyK2FSw0rVXZTUP-m5Nvg8Us" http://localhost:3000/protected
+```
+**Response:**
+```json
+{"message":"Access granted","user":{"email":"utkarsh.srawat2003@gmail.com","sessionId":"mvx7a","iat":1770890292,"exp":1770891192},"success_flag":"FLAG-dXRrYXJzaC5zcmF3YXQyMDAzQGdtYWlsLmNvbV9DT01QTEVURURfQVNTSUdOTUVOVA=="}
+```
+
+---
+
+### Server Logs
+```
+Server running at http://localhost:3000
+POST /auth/login
+[OTP] Session mvx7a generated : 187206
+POST /auth/login -> 200 (71ms)
+POST /auth/verify-otp
+POST /auth/verify-otp -> 200 (25ms)
+POST /auth/token
+POST /auth/token -> 200 (11ms)
+GET /protected
+GET /protected -> 200 (5ms)
+```
