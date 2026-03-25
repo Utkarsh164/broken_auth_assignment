@@ -1,5 +1,3 @@
---
-
 ## My Output
 
 ### Command 1 — Login
